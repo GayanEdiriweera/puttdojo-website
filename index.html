@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Putt Window - Real Ball Putting for Quest</title>
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://www.youtube.com" />
+    <link rel="preconnect" href="https://i.ytimg.com" />
+
+    <!-- Only preload critical above-the-fold image -->
+    <link rel="preload" href="LogoTransparent.png" as="image" />
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, sans-serif;
+        background: #3e5236;
+        color: #fff;
+        line-height: 1.6;
+      }
+
+      /* Simplified loading indicator - non-blocking */
+      .page-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.2);
+        z-index: 9999;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+      }
+
+      .page-loader::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0;
+        background: linear-gradient(90deg, #1877f2, #0e5dc2);
+        animation: loading 2s ease-in-out;
+      }
+
+      @keyframes loading {
+        0% {
+          width: 0;
+        }
+        50% {
+          width: 70%;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+
+      .page-loader.hidden {
+        opacity: 0;
+      }
+
+      .hero-section {
+        padding: 1rem 0 1rem;
+      }
+
+      .hero-section img {
+        margin: auto;
+        width: 20rem;
+        max-width: 90%;
+        display: block;
+        height: auto;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .video-section {
+        padding: 1rem 2rem;
+        text-align: center;
+        background: url("images/green.png") repeat;
+        background-size: 512px 512px;
+        background-color: #7a9854;
+      }
+
+      /* YouTube embed responsive container */
+      .video-container {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        max-width: 960px;
+        margin: 0 auto;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        background-color: #000;
+      }
+
+      .video-container iframe,
+      .video-container video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      /* Fallback for self-hosted video */
+      video {
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 960px;
+        height: auto;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        background-color: #000;
+      }
+
+      /* Add fade-in for images as they load */
+      img {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      img.loaded {
+        opacity: 1;
+      }
+
+      .cta-primary {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 1.2rem 3rem;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #fff;
+        background: linear-gradient(135deg, #1877f2 0%, #0e5dc2 100%);
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 24px rgba(24, 119, 242, 0.4);
+      }
+
+      .cta-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(24, 119, 242, 0.5);
+      }
+
+      .features {
+        padding: 5rem 2rem;
+        background: #fff;
+        color: #222;
+      }
+
+      .features h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #0a4d2e;
+      }
+
+      .features-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 4rem;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 3rem;
+      }
+
+      .feature-card {
+        text-align: center;
+        padding: 2rem;
+        background: #f8f9fa;
+        border-radius: 12px;
+        transition: transform 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .feature-card h3 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        color: #0a4d2e;
+      }
+
+      .feature-card p {
+        color: #555;
+        line-height: 1.7;
+      }
+
+      .screenshots {
+        padding: 5rem 2rem;
+        background: #f0f4f8;
+        color: #222;
+      }
+
+      .screenshots h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: #0a4d2e;
+      }
+
+      .screenshots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .screenshots-grid img {
+        width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        background-color: #e0e0e0;
+        min-height: 200px;
+      }
+
+      .screenshots-grid img:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .testimonials {
+        padding: 5rem 2rem;
+        background: #fff;
+        color: #222;
+      }
+
+      .testimonials h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: #0a4d2e;
+      }
+
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .testimonial-card {
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 12px;
+        border-left: 4px solid #1a7a4a;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .testimonial-rating {
+        color: #ffc107;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+      }
+
+      .testimonial-text {
+        font-style: italic;
+        color: #444;
+        line-height: 1.8;
+        margin-bottom: 1rem;
+      }
+
+      .testimonial-author {
+        text-align: right;
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .requirements {
+        padding: 5rem 2rem;
+        background: #fff;
+        color: #222;
+      }
+
+      .requirements h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #0a4d2e;
+      }
+
+      .requirements-content {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #f8f9fa;
+        padding: 3rem;
+        border-radius: 12px;
+        border-left: 5px solid #1877f2;
+      }
+
+      .requirements h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: #0a4d2e;
+      }
+
+      .requirements ul {
+        list-style: none;
+        margin-bottom: 2rem;
+      }
+
+      .requirements li {
+        padding: 0.8rem 0 0.8rem 2rem;
+        position: relative;
+        color: #444;
+        font-size: 1.1rem;
+      }
+
+      .requirements li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #1a7a4a;
+        font-weight: bold;
+        font-size: 1.3rem;
+      }
+
+      .note {
+        background: #fff3cd;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-top: 2rem;
+        color: #856404;
+        border-left: 4px solid #ffc107;
+      }
+
+      .cta-section {
+        padding: 5rem 2rem;
+        background: url("images/green.png") repeat;
+        background-size: 512px 512px;
+        background-color: #2d5a3d;
+        text-align: center;
+      }
+
+      .cta-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .cta-section p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      .discord-link {
+        display: inline-block;
+        margin-top: 2rem;
+        padding: 1rem 2.5rem;
+        font-size: 1.1rem;
+        color: #fff;
+        background: #5865f2;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .discord-link:hover {
+        background: #4752c4;
+        transform: translateY(-2px);
+      }
+
+      footer {
+        padding: 2rem;
+        text-align: center;
+        background: #000;
+        color: #999;
+      }
+
+      @media (max-width: 768px) {
+        .features h2,
+        .screenshots h2,
+        .testimonials h2,
+        .requirements h2,
+        .cta-section h2 {
+          font-size: 2rem;
+        }
+
+        .requirements-content {
+          padding: 2rem;
+        }
+
+        .hero-section img {
+          width: 16rem;
+        }
+      }
+    </style>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=AW-17331577749"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "AW-17331577749");
+    </script>
+  </head>
+  <body>
+    <!-- Non-blocking progress bar -->
+    <div class="page-loader" id="page-loader"></div>
+
+    <div class="hero-section">
+      <img
+        src="LogoTransparent.png"
+        alt="Putt Window - Mixed Reality Putting Simulator"
+        id="hero-image"
+      />
+    </div>
+
+    <div class="video-section">
+      <div class="video-container">
+        <iframe
+          src="https://www.youtube.com/embed/r_3eahuJ0L4?autoplay=1&mute=1&loop=1&playlist=r_3eahuJ0L4&controls=0&modestbranding=1&rel=0"
+          title="Putt Window Demo"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+      <a
+        class="cta-primary"
+        href="https://www.meta.com/en-gb/experiences/putt-window/7908645409222708/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Get it now on Meta Quest
+      </a>
+    </div>
+
+    <div class="features">
+      <div class="container">
+        <h2>Why Putt Window?</h2>
+        <p class="features-subtitle">
+          The closest thing to real putting without leaving home.
+        </p>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">⛳</div>
+            <h3>Real Ball Tracking</h3>
+            <p>
+              Use your actual golf ball and putter. Watch your ball roll through
+              your space and seamlessly transition into the virtual world.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🏠</div>
+            <h3>Practice at Home</h3>
+            <p>
+              Step onto a virtual green while standing in your living room. The
+              closest thing to real putting without leaving home.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>True-to-Life Feel</h3>
+            <p>
+              Unlike controller-based apps, Putt Window delivers tactile
+              feedback. Your stroke and contact truly matter.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screenshots">
+      <h2>See It In Action</h2>
+      <div class="screenshots-grid">
+        <img
+          data-src="images/Screenshot0.jpg"
+          alt="Putt Window gameplay screenshot 1"
+          class="lazy"
+        />
+        <img
+          data-src="images/Screenshot1.jpg"
+          alt="Putt Window gameplay screenshot 2"
+          class="lazy"
+        />
+        <img
+          data-src="images/Screenshot2.png"
+          alt="Putt Window gameplay screenshot 3"
+          class="lazy"
+        />
+        <img
+          data-src="images/Screenshot3.png"
+          alt="Putt Window gameplay screenshot 4"
+          class="lazy"
+        />
+        <img
+          data-src="images/Screenshot4.png"
+          alt="Putt Window gameplay screenshot 5"
+          class="lazy"
+        />
+      </div>
+    </div>
+
+    <div class="testimonials">
+      <h2>What Golfers Are Saying</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-rating">★★★★★</div>
+          <p class="testimonial-text">
+            "An experience every real-life golfer should try."
+          </p>
+          <p class="testimonial-author">— Quest Store Review</p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-rating">★★★★★</div>
+          <p class="testimonial-text">
+            "I've been wanting to build a putting green for a while now but
+            haven't yet because of the price and space it takes up. It's pretty
+            incredible. The tracking feels accurate and the mixed reality nature
+            of everything is awesome. Having your wall turn into a window to a
+            putting green is one of those things I love about this technology."
+          </p>
+          <p class="testimonial-author">— Quest Store Review</p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-rating">★★★★★</div>
+          <p class="testimonial-text">
+            "This really is a legit training aid. When I first started, I was
+            about 70% on 8 ft putts. After one weekend, I can routinely hit 20
+            in a row."
+          </p>
+          <p class="testimonial-author">— Quest Store Review</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="requirements">
+      <div class="container">
+        <h2>What You'll Need</h2>
+        <div class="requirements-content">
+          <h3>For Real Ball Mode:</h3>
+          <ul>
+            <li>Meta Quest 3 or Quest 3S headset</li>
+            <li>
+              A real putter and golf ball (solid white or colored ball works
+              best)
+            </li>
+            <li>At least 2 ft of putting surface (putting mat or carpet)</li>
+            <li>A backstop or cushion to prevent the ball rolling away</li>
+            <li>Good lighting for consistent tracking</li>
+          </ul>
+          <div class="note">
+            <strong>Note:</strong> The putting surface should contrast with the
+            ball. A white ball on a darker colored surface works well. The
+            tracking area (1x2ft) should be free of lines/markings of similar
+            color to the ball.
+          </div>
+          <p style="margin-top: 2rem; color: #666; font-size: 1rem">
+            <em
+              >You can also play using Quest Touch Controllers, but the full
+              magic is in real ball mode.</em
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h2>Ready to Transform Your Putting Practice?</h2>
+      <p>
+        If you've ever wished for more realistic, varied putting practice at
+        home, Putt Window is for you.
+      </p>
+      <a
+        class="cta-primary"
+        href="https://www.meta.com/en-gb/experiences/putt-window/7908645409222708/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Get it now on Meta Quest
+      </a>
+      <br />
+      <a
+        class="discord-link"
+        href="https://discord.gg/wkDcwCEBzJ"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        💬 Join Our Discord Community
+      </a>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Mixr Design. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Simple, non-blocking loader
+      window.addEventListener("load", () => {
+        const loader = document.getElementById("page-loader");
+        setTimeout(() => {
+          loader.classList.add("hidden");
+        }, 500);
+      });
+
+      // Image fade-in as they load
+      document
+        .getElementById("hero-image")
+        .addEventListener("load", function () {
+          this.classList.add("loaded");
+        });
+
+      // Lazy load images with fade-in effect
+      function lazyLoadImages() {
+        const lazyImages = document.querySelectorAll("img.lazy");
+
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.src = img.dataset.src;
+              img.addEventListener("load", () => {
+                img.classList.add("loaded");
+              });
+              img.classList.remove("lazy");
+              observer.unobserve(img);
+            }
+          });
+        });
+
+        lazyImages.forEach((img) => imageObserver.observe(img));
+      }
+
+      // Start lazy loading immediately
+      lazyLoadImages();
+    </script>
+  </body>
+</html>
+
