@@ -1,30 +1,30 @@
 :root {
-  /* Color palette */
-  --primary-green: #1a5c3a;
-  --primary-green-dark: #0d3d25;
-  --primary-green-light: #2d7a4a;
-  --accent-blue: #1877f2;
-  --accent-blue-dark: #0e5dc2;
+  /* Color palette - Light Golf Green Theme */
+  --primary-green: #15803d;
+  --primary-green-dark: #166534;
+  --primary-green-light: #22c55e;
+  --accent-blue: #0d9488;
+  --accent-blue-dark: #0f766e;
   --discord-purple: #5865f2;
-  --background-dark: #0a1f14;
-  --background-light: #f8faf9;
+  --background-dark: #14532d;
+  --background-light: #f0fdf4;
   --card-bg: #ffffff;
   --text-primary: #1a1a1a;
-  --text-secondary: #5a6a5f;
+  --text-secondary: #4b5563;
   --text-light: #ffffff;
-  --gold: #ffc107;
-  --warning-bg: #fff8e6;
-  --warning-border: #ffc107;
+  --gold: #eab308;
+  --warning-bg: #fefce8;
+  --warning-border: #eab308;
 
   /* Gradients */
   --gradient-hero: linear-gradient(
     135deg,
-    #0d3d25 0%,
-    #1a5c3a 50%,
-    #2d7a4a 100%
+    #14532d 0%,
+    #15803d 50%,
+    #22c55e 100%
   );
-  --gradient-cta: linear-gradient(135deg, #1877f2 0%, #0e5dc2 100%);
-  --gradient-card: linear-gradient(145deg, #ffffff 0%, #f0f4f2 100%);
+  --gradient-cta: linear-gradient(135deg, #0793d4 0%, #0284c7 100%);
+  --gradient-card: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
 
   /* Spacing */
   --section-padding: 6rem;
@@ -79,10 +79,10 @@ body {
 }
 
 .nav.scrolled {
-  background: rgba(10, 31, 20, 0.95);
+  background: rgba(20, 83, 45, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
 }
 
 .nav-container {
@@ -341,7 +341,7 @@ body {
 }
 
 .section-white {
-  background: white;
+  background: #ffffff;
   color: var(--text-primary);
 }
 
@@ -631,7 +631,7 @@ body {
   align-items: flex-start;
   gap: 1rem;
   padding: 1rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   color: var(--text-primary);
   font-size: 1.05rem;
 }
@@ -668,11 +668,11 @@ body {
 }
 
 .note-box strong {
-  color: #856404;
+  color: #a16207;
 }
 
 .note-box p {
-  color: #856404;
+  color: #a16207;
   font-size: 0.95rem;
   line-height: 1.6;
 }
@@ -775,7 +775,7 @@ img.loaded {
     top: 100%;
     left: 0;
     right: 0;
-    background: rgba(10, 31, 20, 0.98);
+    background: rgba(20, 83, 45, 0.98);
     flex-direction: column;
     padding: 2rem;
     gap: 1.5rem;
