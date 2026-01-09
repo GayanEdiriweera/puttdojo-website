@@ -23,7 +23,7 @@
     #15803d 50%,
     #22c55e 100%
   );
-  --gradient-cta: linear-gradient(135deg, #0793d4 0%, #0284c7 100%);
+  --gradient-cta: linear-gradient(135deg, #1e71de 0%, #0364e0 100%);
   --gradient-card: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
 
   /* Spacing */
