@@ -25,6 +25,38 @@
 
     <link rel="stylesheet" href="styles.css" />
 
+    <!-- Lightbox Gallery -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" aria-label="Close gallery">&times;</button>
+      <button class="lightbox-nav lightbox-prev" aria-label="Previous image">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+      <button class="lightbox-nav lightbox-next" aria-label="Next image">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </button>
+      <div class="lightbox-content">
+        <img src="" alt="" class="lightbox-image" />
+      </div>
+      <div class="lightbox-counter">
+        <span class="lightbox-current">1</span> /
+        <span class="lightbox-total">5</span>
+      </div>
+    </div>
+
     <!-- Google tag (gtag.js) -->
     <script
       async
@@ -179,40 +211,90 @@
         </div>
 
         <div class="screenshots-grid">
-          <div class="screenshot-item reveal">
+          <div class="screenshot-item reveal" data-index="0">
             <img
               data-src="images/Screenshot0.webp"
               alt="Putt Dojo gameplay screenshot 1"
               class="lazy"
             />
+            <div class="screenshot-expand-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
+            </div>
           </div>
-          <div class="screenshot-item reveal">
+          <div class="screenshot-item reveal" data-index="1">
             <img
               data-src="images/Screenshot1.webp"
               alt="Putt Dojo gameplay screenshot 2"
               class="lazy"
             />
+            <div class="screenshot-expand-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
+            </div>
           </div>
-          <div class="screenshot-item reveal">
+          <div class="screenshot-item reveal" data-index="2">
             <img
               data-src="images/Screenshot2.webp"
               alt="Putt Dojo gameplay screenshot 3"
               class="lazy"
             />
+            <div class="screenshot-expand-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
+            </div>
           </div>
-          <div class="screenshot-item reveal">
+          <div class="screenshot-item reveal" data-index="3">
             <img
               data-src="images/Screenshot3.webp"
               alt="Putt Dojo gameplay screenshot 4"
               class="lazy"
             />
+            <div class="screenshot-expand-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
+            </div>
           </div>
-          <div class="screenshot-item reveal">
+          <div class="screenshot-item reveal" data-index="4">
             <img
               data-src="images/Screenshot4.webp"
               alt="Putt Dojo gameplay screenshot 5"
               class="lazy"
             />
+            <div class="screenshot-expand-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+              </svg>
+            </div>
           </div>
         </div>
       </div>
