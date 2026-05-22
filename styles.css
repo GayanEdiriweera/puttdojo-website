@@ -246,11 +246,15 @@ body {
   align-items: center;
   justify-content: center;
   padding: 8rem 2rem 6rem;
-  background-image: url("images/keyart.webp");
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-color: var(--sky-100);
+  background-image:
+    url("images/keyart.webp"),
+    linear-gradient(180deg, #8fc4dc 0%, #d8c89a 55%, #6ea84a 100%);
+  background-size: cover, cover;
+  background-position:
+    center center,
+    center center;
+  background-repeat: no-repeat, no-repeat;
+  background-color: #b8d8e8;
   position: relative;
   overflow: hidden;
 }
