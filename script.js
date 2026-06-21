@@ -60,7 +60,7 @@ function lazyLoadImages() {
     },
     {
       rootMargin: "50px 0px",
-    }
+    },
   );
 
   lazyImages.forEach((img) => imageObserver.observe(img));
@@ -163,7 +163,7 @@ lightbox.addEventListener(
   (e) => {
     touchStartX = e.changedTouches[0].screenX;
   },
-  { passive: true }
+  { passive: true },
 );
 
 lightbox.addEventListener(
@@ -172,7 +172,7 @@ lightbox.addEventListener(
     touchEndX = e.changedTouches[0].screenX;
     handleSwipe();
   },
-  { passive: true }
+  { passive: true },
 );
 
 function handleSwipe() {
@@ -187,4 +187,22 @@ function handleSwipe() {
     }
   }
 }
+
+// Lite YouTube - lazy load iframe on click
+document.querySelectorAll(".lite-youtube").forEach((container) => {
+  container.addEventListener("click", function () {
+    if (this.classList.contains("activated")) return;
+
+    const videoId = this.dataset.videoid;
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&modestbranding=1&rel=0`;
+    iframe.title = "YouTube video player";
+    iframe.allow =
+      "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+    iframe.allowFullscreen = true;
+
+    this.appendChild(iframe);
+    this.classList.add("activated");
+  });
+});
 

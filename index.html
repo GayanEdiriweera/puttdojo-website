@@ -23,7 +23,10 @@
       property="og:description"
       content="Transform your putting practice with Putt Dojo. Use your real putter and golf ball in mixed reality. Available on Meta Quest 3."
     />
-    <meta property="og:image" content="https://puttdojo.com/images/keyart.webp" />
+    <meta
+      property="og:image"
+      content="https://puttdojo.com/images/keyart.webp"
+    />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -63,38 +66,6 @@
     />
 
     <link rel="stylesheet" href="styles.css" />
-
-    <!-- Lightbox Gallery -->
-    <div class="lightbox" id="lightbox">
-      <button class="lightbox-close" aria-label="Close gallery">&times;</button>
-      <button class="lightbox-nav lightbox-prev" aria-label="Previous image">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M15 18l-6-6 6-6" />
-        </svg>
-      </button>
-      <button class="lightbox-nav lightbox-next" aria-label="Next image">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M9 18l6-6-6-6" />
-        </svg>
-      </button>
-      <div class="lightbox-content">
-        <img src="" alt="" class="lightbox-image" />
-      </div>
-      <div class="lightbox-counter">
-        <span class="lightbox-current">1</span> /
-        <span class="lightbox-total">5</span>
-      </div>
-    </div>
 
     <!-- Google tag (gtag.js) -->
     <script
@@ -266,20 +237,24 @@
         </p>
         <div class="hero-video-container">
           <div class="video-wrapper">
-            <iframe
-              src="https://www.youtube.com/embed/r_3eahuJ0L4?autoplay=1&mute=1&loop=1&playlist=r_3eahuJ0L4&controls=0&modestbranding=1&rel=0"
-              title="Putt Dojo Demo"
-              allow="
-                accelerometer;
-                autoplay;
-                clipboard-write;
-                encrypted-media;
-                gyroscope;
-                picture-in-picture;
-              "
-              allowfullscreen
-              loading="lazy"
-            ></iframe>
+            <div class="lite-youtube" data-videoid="r_3eahuJ0L4">
+              <img
+                src="https://i.ytimg.com/vi/r_3eahuJ0L4/maxresdefault.jpg"
+                alt="Putt Dojo Demo - Click to play"
+                loading="lazy"
+                decoding="async"
+              />
+              <button class="lite-youtube-playbtn" aria-label="Play video">
+                <svg viewBox="0 0 68 48" width="68" height="48">
+                  <path
+                    class="lite-youtube-bg"
+                    d="M66.52 7.74c-.78-2.93-2.49-5.41-5.42-6.19C55.79.13 34 0 34 0S12.21.13 6.9 1.55c-2.93.78-4.63 3.26-5.42 6.19C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26c.78 2.93 2.49 5.41 5.42 6.19C12.21 47.87 34 48 34 48s21.79-.13 27.1-1.55c2.93-.78 4.64-3.26 5.42-6.19C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z"
+                    fill="#f00"
+                  />
+                  <path d="M45 24L27 14v20" fill="#fff" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -388,6 +363,8 @@
               data-src="images/Screenshot0.webp"
               alt="Putt Dojo gameplay screenshot 1"
               class="lazy"
+              loading="lazy"
+              decoding="async"
             />
             <div class="screenshot-expand-icon">
               <svg
@@ -405,6 +382,8 @@
               data-src="images/Screenshot1.webp"
               alt="Putt Dojo gameplay screenshot 2"
               class="lazy"
+              loading="lazy"
+              decoding="async"
             />
             <div class="screenshot-expand-icon">
               <svg
@@ -420,8 +399,10 @@
           <div class="screenshot-item reveal" data-index="2">
             <img
               data-src="images/Screenshot2.webp"
-              alt="Putt Dojo gameplay screenshot 3"
+              alt="Putt Dojo gameplay screenshot 2"
               class="lazy"
+              loading="lazy"
+              decoding="async"
             />
             <div class="screenshot-expand-icon">
               <svg
@@ -439,6 +420,8 @@
               data-src="images/Screenshot3.webp"
               alt="Putt Dojo gameplay screenshot 4"
               class="lazy"
+              loading="lazy"
+              decoding="async"
             />
             <div class="screenshot-expand-icon">
               <svg
@@ -456,6 +439,8 @@
               data-src="images/Screenshot4.webp"
               alt="Putt Dojo gameplay screenshot 5"
               class="lazy"
+              loading="lazy"
+              decoding="async"
             />
             <div class="screenshot-expand-icon">
               <svg
@@ -813,6 +798,38 @@
         </div>
       </div>
     </footer>
+
+    <!-- Lightbox Gallery -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" aria-label="Close gallery">&times;</button>
+      <button class="lightbox-nav lightbox-prev" aria-label="Previous image">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+      <button class="lightbox-nav lightbox-next" aria-label="Next image">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </button>
+      <div class="lightbox-content">
+        <img src="" alt="" class="lightbox-image" />
+      </div>
+      <div class="lightbox-counter">
+        <span class="lightbox-current">1</span> /
+        <span class="lightbox-total">5</span>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>
