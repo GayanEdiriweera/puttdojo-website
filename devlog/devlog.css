@@ -1,0 +1,593 @@
+/* ===========================================================
+   DEVLOG ARTICLE STYLES
+   Extends the main styles.css with prose / long-form typography.
+   Keep this file purely additive — colour tokens, fonts, buttons
+   and the .nav / .footer come from ../styles.css.
+   =========================================================== */
+
+/* The main site uses `img { opacity: 0 }` + a `.loaded` class added by
+   script.js for lazy-loaded images. Dev log images are not lazy-loaded,
+   so opt them back in to being visible by default. */
+.devlog-hero img,
+.devlog-cover img,
+.devlog-card img,
+.article img {
+  opacity: 1;
+}
+
+/* ----- Article hero (compact replacement for the keyart hero) ----- */
+.devlog-hero {
+  position: relative;
+  padding: 9rem 2rem 3.5rem;
+  background:
+    radial-gradient(
+      ellipse 70% 60% at 50% 0%,
+      rgba(34, 197, 94, 0.12) 0%,
+      rgba(34, 197, 94, 0) 70%
+    ),
+    linear-gradient(180deg, var(--sky-50) 0%, #ffffff 100%);
+  border-bottom: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+.devlog-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 220px;
+  background: var(--gradient-nav-vignette);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.devlog-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.devlog-hero .section-label {
+  margin-bottom: 1.25rem;
+}
+
+.devlog-title {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+}
+
+.devlog-deck {
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  color: var(--text-secondary);
+  line-height: 1.7;
+  max-width: 620px;
+  margin: 0 auto 2rem;
+}
+
+.devlog-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.devlog-meta .dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  opacity: 0.6;
+}
+
+.devlog-meta a {
+  color: var(--primary-dark);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.devlog-meta a:hover {
+  text-decoration: underline;
+}
+
+/* ----- Optional cover image directly under the hero ----- */
+.devlog-cover {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  margin-top: -1rem;
+  margin-bottom: 3rem;
+}
+
+.devlog-cover figure {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-lg);
+  background: #000;
+}
+
+.devlog-cover img,
+.devlog-cover video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ----- Article body / prose ----- */
+.article {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.5rem 5rem;
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.article > * + * {
+  margin-top: 1.4em;
+}
+
+.article h2 {
+  font-size: clamp(1.5rem, 3vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin-top: 2.6em;
+  margin-bottom: 0.6em;
+  color: var(--text-primary);
+  scroll-margin-top: 6rem;
+}
+
+.article h2::before {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--gradient-primary);
+  margin-bottom: 0.8rem;
+}
+
+.article h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-top: 2em;
+  margin-bottom: 0.4em;
+  color: var(--text-primary);
+  scroll-margin-top: 6rem;
+}
+
+.article p {
+  color: var(--text-secondary);
+}
+
+.article a {
+  color: var(--primary-dark);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(34, 197, 94, 0.35);
+  transition: all var(--transition-fast);
+}
+
+.article a:hover {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.article strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.article ul,
+.article ol {
+  padding-left: 1.4em;
+  color: var(--text-secondary);
+}
+
+.article li + li {
+  margin-top: 0.4em;
+}
+
+.article ul li::marker {
+  color: var(--primary);
+}
+
+.article hr {
+  border: 0;
+  height: 1px;
+  background: var(--border-subtle);
+  margin: 3em 0;
+}
+
+/* Blockquote — uses the yellow flag accent like the note-box */
+.article blockquote {
+  border-left: 3px solid var(--accent-yellow);
+  background: rgba(251, 191, 36, 0.08);
+  padding: 1rem 1.25rem;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.article blockquote p {
+  margin: 0;
+}
+
+/* Inline + block code */
+.article code {
+  font-family:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.92em;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid var(--border-accent);
+  color: var(--primary-dark);
+  padding: 0.12em 0.42em;
+  border-radius: 6px;
+}
+
+.article pre {
+  background: #0f1a14;
+  color: #eaf4ff;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+}
+
+.article pre code {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+/* ----- Figures: images, videos, embeds ----- */
+.article figure {
+  margin: 2.4em 0;
+}
+
+.article figure img,
+.article figure video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
+  background: #000;
+}
+
+.article figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.55;
+}
+
+/* Side-by-side figure pair */
+.article .figure-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.article .figure-row figure {
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .article .figure-row {
+    grid-template-columns: 1fr;
+  }
+
+  .devlog-hero {
+    padding: 6.5rem 1.5rem 2.5rem;
+  }
+}
+
+/* Wide figure: breaks out of the reading column for hero shots */
+.article figure.wide {
+  margin-left: calc(50% - 50vw + 1.5rem);
+  margin-right: calc(50% - 50vw + 1.5rem);
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive 16:9 video wrapper for YouTube / Vimeo iframes */
+.article .video-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+  background: #000;
+}
+
+.article .video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Reusable note callout (mirrors the .note-box pattern from styles.css) */
+.article .callout {
+  display: flex;
+  gap: 0.85rem;
+  align-items: flex-start;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-accent);
+  background: var(--primary-glow);
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.article .callout--warn {
+  background: rgba(251, 191, 36, 0.12);
+  border-color: rgba(245, 158, 11, 0.28);
+  color: var(--text-secondary);
+}
+
+.article .callout strong {
+  color: var(--text-primary);
+}
+
+.article .callout svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--primary);
+}
+
+.article .callout--warn svg {
+  color: var(--accent-yellow-dark);
+}
+
+/* ----- Article footer (next/prev + back home) ----- */
+.devlog-end {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.devlog-end .btn {
+  font-size: 0.92rem;
+}
+
+/* ----- Devlog index (article list) ----- */
+.devlog-index {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 0 2rem 5rem;
+}
+
+.devlog-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.devlog-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+}
+
+.devlog-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-md);
+}
+
+.devlog-card-thumb {
+  aspect-ratio: 16 / 9;
+  background: var(--bg-dark);
+  overflow: hidden;
+}
+
+.devlog-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--transition-slow);
+}
+
+.devlog-card:hover .devlog-card-thumb img {
+  transform: scale(1.04);
+}
+
+.devlog-card-body {
+  padding: 1.5rem 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.devlog-card-meta {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--primary-dark);
+}
+
+.devlog-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1.35;
+}
+
+.devlog-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* ----- Before / After image slider ----- */
+.before-after {
+  margin: 2.4em 0;
+}
+
+.before-after-inner {
+  position: relative;
+  display: block;
+  cursor: col-resize;
+  user-select: none;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-md);
+  background: #000;
+}
+
+/* Base image — sits on bottom, establishes element height */
+.before-after-base {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Top image — absolutely positioned, clipped from the right via clip-path */
+.before-after-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Override the generic .article figure img styles for slider images */
+.before-after-inner img {
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Vertical divider line */
+.before-after-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateX(-50%);
+  pointer-events: none;
+  will-change: left;
+}
+
+/* Circular drag handle centred on the divider */
+.before-after-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  color: var(--text-primary);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.before-after-handle svg {
+  flex-shrink: 0;
+}
+
+/* Labels */
+.before-after-label {
+  position: absolute;
+  top: 0.75rem;
+  background: rgba(0, 0, 0, 0.52);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 3px 9px;
+  border-radius: 20px;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.before-after-label--left {
+  left: 0.75rem;
+}
+
+.before-after-label--right {
+  right: 0.75rem;
+}
+
+/* Fade labels while dragging */
+.before-after-inner.is-dragging .before-after-label {
+  opacity: 0;
+}
+
+/* Invisible range input — spans full element, captures all pointer/touch events */
+.before-after-range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: col-resize;
+  margin: 0;
+  padding: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.before-after .before-after-inner + figcaption,
+.before-after figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.55;
+}
+

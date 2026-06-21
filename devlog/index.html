@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>Dev Log — Putt Dojo</title>
+    <meta
+      name="description"
+      content="Behind-the-scenes notes on building Putt Dojo — a mixed-reality putting simulator for Meta Quest 3."
+    />
+    <link rel="canonical" href="https://puttdojo.com/devlog/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Putt Dojo" />
+    <meta property="og:url" content="https://puttdojo.com/devlog/" />
+    <meta property="og:title" content="Dev Log — Putt Dojo" />
+    <meta
+      property="og:description"
+      content="Behind-the-scenes notes on building Putt Dojo — a mixed-reality putting simulator for Meta Quest 3."
+    />
+    <meta property="og:image" content="https://puttdojo.com/images/keyart.webp" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dev Log — Putt Dojo" />
+    <meta
+      name="twitter:description"
+      content="Behind-the-scenes notes on building Putt Dojo — a mixed-reality putting simulator for Meta Quest 3."
+    />
+    <meta
+      name="twitter:image"
+      content="https://puttdojo.com/images/keyart.webp"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="devlog.css" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "@id": "https://puttdojo.com/devlog/#blog",
+        "name": "Putt Dojo Dev Log",
+        "description": "Behind-the-scenes notes on building Putt Dojo — a mixed-reality putting simulator for Meta Quest 3.",
+        "url": "https://puttdojo.com/devlog/",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Putt Dojo",
+          "url": "https://puttdojo.com/",
+          "logo": "https://puttdojo.com/images/icon.png"
+        },
+        "blogPost": [
+          {
+            "@type": "BlogPosting",
+            "headline": "How Putt Dojo Tracks a Real Golf Ball",
+            "url": "https://puttdojo.com/devlog/tracking-a-real-golf-ball.html",
+            "image": "https://puttdojo.com/images/keyart.webp",
+            "datePublished": "2026-06-21",
+            "author": { "@type": "Person", "name": "Gayan" }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <nav class="nav scrolled" id="nav">
+      <div class="nav-container">
+        <a href="../index.html" class="nav-logo"><span>Putt Dojo</span></a>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="../index.html#features">Features</a></li>
+          <li><a href="../index.html#screenshots">Screenshots</a></li>
+          <li><a href="index.html">Dev Log</a></li>
+          <li>
+            <a
+              href="https://www.meta.com/en-gb/experiences/putt-window/7908645409222708/"
+              class="nav-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Get it on Quest</a
+            >
+          </li>
+        </ul>
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <header class="devlog-hero">
+      <div class="devlog-hero-content">
+        <span class="section-label">Dev Log</span>
+        <h1 class="devlog-title">Notes from the build</h1>
+        <p class="devlog-deck">
+          Behind-the-scenes posts on what we're shipping, breaking, and learning
+          while making Putt Dojo.
+        </p>
+      </div>
+    </header>
+
+    <section class="devlog-index">
+      <div class="devlog-list">
+        <a href="tracking-a-real-golf-ball.html" class="devlog-card">
+          <div class="devlog-card-thumb">
+            <img
+              src="../images/keyart.webp"
+              alt="Putt Dojo key art — real golf ball tracking in mixed reality"
+            />
+          </div>
+          <div class="devlog-card-body">
+            <span class="devlog-card-meta">June 21, 2026</span>
+            <h3>How Putt Dojo Tracks a Real Golf Ball</h3>
+            <p>
+              The engineering and design story behind Putt Dojo&rsquo;s
+              real-ball tracking on Meta Quest 3
+            </p>
+          </div>
+        </a>
+
+        <!--
+          To add a post, copy this block and update the href, image, date,
+          title, and summary.
+
+          <a href="your-new-post.html" class="devlog-card">
+            <div class="devlog-card-thumb"><img src="../images/keyart.webp" alt="" /></div>
+            <div class="devlog-card-body">
+              <span class="devlog-card-meta">DATE &middot; READ TIME</span>
+              <h3>Title</h3>
+              <p>Summary.</p>
+            </div>
+          </a>
+        -->
+      </div>
+    </section>
+
+    <footer class="footer" style="margin-top: 2rem">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <a href="../index.html" class="footer-logo"
+              ><span>Putt Dojo</span></a
+            >
+            <p class="footer-description">
+              The most realistic putting practice experience in mixed reality.
+              Use your real putter and ball.
+            </p>
+          </div>
+          <div class="footer-links-group">
+            <h4>Product</h4>
+            <ul>
+              <li><a href="../index.html#features">Features</a></li>
+              <li><a href="../index.html#screenshots">Screenshots</a></li>
+              <li><a href="../index.html#requirements">Requirements</a></li>
+              <li>
+                <a
+                  href="https://www.meta.com/en-gb/experiences/putt-window/7908645409222708/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Meta Quest Store</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="footer-links-group">
+            <h4>Community</h4>
+            <ul>
+              <li><a href="index.html">Dev Log</a></li>
+              <li>
+                <a
+                  href="https://discord.gg/wkDcwCEBzJ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Discord</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 xr.golf. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
+

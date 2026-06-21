@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- ============================================================
+         ARTICLE METADATA — replace per article
+         ============================================================ -->
+    <title>Article Title — Putt Dojo Dev Log</title>
+    <meta
+      name="description"
+      content="One-sentence summary of the article (used for previews / search)."
+    />
+
+    <!-- Open Graph / social preview -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Article Title — Putt Dojo Dev Log" />
+    <meta
+      property="og:description"
+      content="One-sentence summary of the article."
+    />
+    <meta property="og:image" content="../images/keyart.webp" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico" />
+
+    <!-- Inherit the site's design system, then layer article styles -->
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="devlog.css" />
+  </head>
+  <body>
+    <!-- ===== Navigation (matches index.html) ===== -->
+    <nav class="nav scrolled" id="nav">
+      <div class="nav-container">
+        <a href="../index.html" class="nav-logo">
+          <span>Putt Dojo</span>
+        </a>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="../index.html#features">Features</a></li>
+          <li><a href="../index.html#screenshots">Screenshots</a></li>
+          <li><a href="index.html">Dev Log</a></li>
+          <li>
+            <a
+              href="https://www.meta.com/en-gb/experiences/putt-window/7908645409222708/"
+              class="nav-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Get it on Quest</a
+            >
+          </li>
+        </ul>
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ===== Article header ===== -->
+    <header class="devlog-hero">
+      <div class="devlog-hero-content">
+        <span class="section-label">Dev Log</span>
+        <h1 class="devlog-title">Article Title Goes Here</h1>
+        <p class="devlog-deck">
+          Optional one-or-two-sentence deck that summarises what the post is
+          about. Keep it short — it sits below the title.
+        </p>
+        <div class="devlog-meta">
+          <time datetime="2026-06-11">June 11, 2026</time>
+          <span class="dot" aria-hidden="true"></span>
+          <span>by <a href="#">Gayan</a></span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>5 min read</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Optional cover media: image OR video. Delete the block you don't want. -->
+    <div class="devlog-cover">
+      <figure>
+        <img
+          src="../images/keyart.webp"
+          alt="Cover image describing the article topic"
+        />
+      </figure>
+      <!--
+      <figure>
+        <video src="../PromoHorizontal.mp4" poster="../PromoHorizontal_Cover.png" controls muted playsinline></video>
+      </figure>
+      -->
+    </div>
+
+    <!-- ===== Article body =====
+         Drop your converted Markdown here. Supported elements:
+           h2, h3 — section headings
+           p, ul, ol, blockquote, hr
+           <figure><img/video><figcaption></figure>
+           <div class="figure-row">two figures side-by-side</div>
+           <figure class="wide">breaks out of the reading column</figure>
+           <div class="video-embed"><iframe…></div> for YouTube/Vimeo
+           <div class="callout">…</div> or class="callout callout--warn"
+           <code>inline</code> and <pre><code>blocks</code></pre>
+    -->
+    <article class="article">
+      <p>
+        Lead paragraph — sets up the problem, hook, or context. Make this the
+        most engaging sentence in the post. The rest of the article supports
+        and expands on it.
+      </p>
+
+      <h2>A section heading</h2>
+      <p>
+        Body copy. Use <a href="#">inline links</a>, <strong>strong emphasis</strong>,
+        and <code>inline code</code> as needed.
+      </p>
+
+      <!-- Single image -->
+      <figure>
+        <img src="../images/keyart.webp" alt="Descriptive alt text" />
+        <figcaption>Caption describing what the reader is looking at.</figcaption>
+      </figure>
+
+      <!-- Local video -->
+      <figure>
+        <video
+          src="../PromoHorizontal.mp4"
+          poster="../PromoHorizontal_Cover.png"
+          controls
+          muted
+          playsinline
+          preload="metadata"
+        ></video>
+        <figcaption>A short clip from the build.</figcaption>
+      </figure>
+
+      <!-- YouTube / Vimeo embed -->
+      <figure>
+        <div class="video-embed">
+          <iframe
+            src="https://www.youtube.com/embed/r_3eahuJ0L4"
+            title="YouTube video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+        <figcaption>Optional caption for the embed.</figcaption>
+      </figure>
+
+      <!-- Side-by-side figures -->
+      <div class="figure-row">
+        <figure>
+          <img src="../images/keyart.webp" alt="Left image" />
+          <figcaption>Left.</figcaption>
+        </figure>
+        <figure>
+          <img src="../images/keyart.webp" alt="Right image" />
+          <figcaption>Right.</figcaption>
+        </figure>
+      </div>
+
+      <h3>A sub-heading</h3>
+      <ul>
+        <li>List item one</li>
+        <li>List item two</li>
+        <li>List item three</li>
+      </ul>
+
+      <blockquote>
+        <p>
+          A pull quote or callout sentence worth highlighting. Uses the yellow
+          flag accent.
+        </p>
+      </blockquote>
+
+      <div class="callout">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <div><strong>Tip.</strong> A green note for tips and tricks.</div>
+      </div>
+
+      <pre><code>// A code sample
+function tee() {
+  return "fore!";
+}
+</code></pre>
+
+      <hr />
+
+      <p>
+        Closing paragraph — wrap up, next steps, or a call to action linking to
+        Discord / the store.
+      </p>
+    </article>
+
+    <!-- ===== Article footer ===== -->
+    <div class="devlog-end">
+      <a href="index.html" class="btn btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        All Dev Log posts
+      </a>
+      <a
+        href="https://discord.gg/wkDcwCEBzJ"
+        class="btn btn-primary"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Join the Discord</a
+      >
+    </div>
+
+    <!-- ===== Footer (matches index.html) ===== -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <a href="../index.html" class="footer-logo">
+              <span>Putt Dojo</span>
+            </a>
+            <p class="footer-description">
+              The most realistic putting practice experience in mixed reality.
+              Use your real putter and ball.
+            </p>
+          </div>
+          <div class="footer-links-group">
+            <h4>Product</h4>
+            <ul>
+              <li><a href="../index.html#features">Features</a></li>
+              <li><a href="../index.html#screenshots">Screenshots</a></li>
+              <li><a href="../index.html#requirements">Requirements</a></li>
+              <li>
+                <a
+                  href="https://www.meta.com/en-gb/experiences/putt-window/7908645409222708/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Meta Quest Store</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="footer-links-group">
+            <h4>Community</h4>
+            <ul>
+              <li><a href="index.html">Dev Log</a></li>
+              <li>
+                <a
+                  href="https://discord.gg/wkDcwCEBzJ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Discord</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 xr.golf. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>

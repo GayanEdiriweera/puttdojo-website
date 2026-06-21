@@ -9,6 +9,36 @@
       name="description"
       content="Transform your putting practice with Putt Dojo. Use your real putter and golf ball in mixed reality. Available on Meta Quest 3."
     />
+    <link rel="canonical" href="https://puttdojo.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Putt Dojo" />
+    <meta property="og:url" content="https://puttdojo.com/" />
+    <meta
+      property="og:title"
+      content="Putt Dojo - Real Ball VR Golf Simulator"
+    />
+    <meta
+      property="og:description"
+      content="Transform your putting practice with Putt Dojo. Use your real putter and golf ball in mixed reality. Available on Meta Quest 3."
+    />
+    <meta property="og:image" content="https://puttdojo.com/images/keyart.webp" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Putt Dojo - Real Ball VR Golf Simulator"
+    />
+    <meta
+      name="twitter:description"
+      content="Transform your putting practice with Putt Dojo. Use your real putter and golf ball in mixed reality. Available on Meta Quest 3."
+    />
+    <meta
+      name="twitter:image"
+      content="https://puttdojo.com/images/keyart.webp"
+    />
 
     <!-- Preconnect to external domains for faster loading -->
     <link rel="preconnect" href="https://www.youtube.com" />
@@ -79,6 +109,46 @@
       gtag("js", new Date());
       gtag("config", "AW-17331577749");
     </script>
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://puttdojo.com/#organization",
+            "name": "Putt Dojo",
+            "url": "https://puttdojo.com/",
+            "logo": "https://puttdojo.com/images/icon.png",
+            "sameAs": ["https://discord.gg/wkDcwCEBzJ"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://puttdojo.com/#website",
+            "url": "https://puttdojo.com/",
+            "name": "Putt Dojo",
+            "publisher": { "@id": "https://puttdojo.com/#organization" }
+          },
+          {
+            "@type": "VideoGame",
+            "name": "Putt Dojo",
+            "url": "https://puttdojo.com/",
+            "image": "https://puttdojo.com/images/keyart.webp",
+            "description": "Mixed reality putting simulator for Meta Quest 3 and 3S. Use your real putter and golf ball with real-ball tracking technology.",
+            "applicationCategory": "GameApplication",
+            "operatingSystem": "Meta Quest 3, Meta Quest 3S",
+            "gamePlatform": "Meta Quest",
+            "publisher": { "@id": "https://puttdojo.com/#organization" },
+            "offers": {
+              "@type": "Offer",
+              "url": "https://www.meta.com/en-gb/experiences/putt-window/7908645409222708/",
+              "availability": "https://schema.org/InStock"
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <!-- Navigation -->
@@ -92,6 +162,7 @@
           <li><a href="#screenshots">Screenshots</a></li>
           <li><a href="#reviews">Reviews</a></li>
           <li><a href="#requirements">Requirements</a></li>
+          <li><a href="devlog/">Dev Log</a></li>
           <li>
             <a
               href="https://www.meta.com/en-gb/experiences/putt-window/7908645409222708/"
@@ -724,6 +795,7 @@
           <div class="footer-links-group">
             <h4>Community</h4>
             <ul>
+              <li><a href="devlog/">Dev Log</a></li>
               <li>
                 <a
                   href="https://discord.gg/wkDcwCEBzJ"

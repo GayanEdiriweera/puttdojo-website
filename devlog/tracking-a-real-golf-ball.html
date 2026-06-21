@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>How Putt Dojo Tracks a Real Golf Ball — Putt Dojo Dev Log</title>
+    <meta
+      name="description"
+      content="The engineering and design story behind Putt Dojo&rsquo;s real-ball tracking on Meta Quest 3"
+    />
+    <link
+      rel="canonical"
+      href="https://puttdojo.com/devlog/tracking-a-real-golf-ball.html"
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Putt Dojo" />
+    <meta
+      property="og:url"
+      content="https://puttdojo.com/devlog/tracking-a-real-golf-ball.html"
+    />
+    <meta
+      property="og:title"
+      content="How Putt Dojo Tracks a Real Golf Ball — Putt Dojo Dev Log"
+    />
+    <meta
+      property="og:description"
+      content="The engineering and design story behind Putt Dojo&rsquo;s real-ball tracking on Meta Quest 3"
+    />
+    <meta
+      property="og:image"
+      content="https://puttdojo.com/images/keyart.webp"
+    />
+    <meta property="article:published_time" content="2026-06-21" />
+    <meta property="article:author" content="Gayan" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="How Putt Dojo Tracks a Real Golf Ball — Putt Dojo Dev Log"
+    />
+    <meta
+      name="twitter:description"
+      content="The engineering and design story behind Putt Dojo&rsquo;s real-ball tracking on Meta Quest 3"
+    />
+    <meta
+      name="twitter:image"
+      content="https://puttdojo.com/images/keyart.webp"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="devlog.css" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "How Putt Dojo Tracks a Real Golf Ball",
+        "description": "The engineering and design story behind Putt Dojo’s real-ball tracking on Meta Quest 3.",
+        "image": "https://puttdojo.com/images/keyart.webp",
+        "url": "https://puttdojo.com/devlog/tracking-a-real-golf-ball.html",
+        "datePublished": "2026-06-21",
+        "dateModified": "2026-06-21",
+        "author": { "@type": "Person", "name": "Gayan" },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Putt Dojo",
+          "url": "https://puttdojo.com/",
+          "logo": "https://puttdojo.com/images/icon.png"
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://puttdojo.com/devlog/tracking-a-real-golf-ball.html"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <nav class="nav scrolled" id="nav">
+      <div class="nav-container">
+        <a href="../index.html" class="nav-logo"><span>Putt Dojo</span></a>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="../index.html#features">Features</a></li>
+          <li><a href="../index.html#screenshots">Screenshots</a></li>
+          <li><a href="index.html">Dev Log</a></li>
+          <li>
+            <a
+              href="https://www.meta.com/en-gb/experiences/putt-window/7908645409222708/"
+              class="nav-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Get it on Quest</a
+            >
+          </li>
+        </ul>
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          aria-label="Toggle navigation"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <header class="devlog-hero">
+      <div class="devlog-hero-content">
+        <span class="section-label">Dev Log &middot; Issue #01</span>
+        <h1 class="devlog-title">How Putt Dojo Tracks a Real Golf Ball</h1>
+        <p class="devlog-deck">
+          The engineering and design story behind Putt Dojo&rsquo;s real-ball
+          tracking on Meta Quest 3
+        </p>
+        <div class="devlog-meta">
+          <time datetime="2026-06-21">June 21, 2026</time>
+          <span class="dot" aria-hidden="true"></span>
+          <span>by Gayan, solo developer of Putt Dojo</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="devlog-cover">
+      <figure>
+        <img src="../images/keyart.webp" alt="Putt Dojo key art" />
+      </figure>
+    </div>
+
+    <article class="article">
+      <p>
+        I'm not a golfer. I've never played a round in my life. But I've spent
+        over three years obsessing over what happens in the tenth of a second
+        after a putter strikes a golf ball — because that window turned out to
+        be the key to building something new and useful that did not exist
+        before.
+      </p>
+      <p>
+        I&rsquo;ve been digging deep into a specific technical design challenge:
+        how to bring a real, physical ball into mixed reality. My motivation has
+        never been to build a cool tech demo or a flashy video; I wanted to push
+        the boundaries of spatial interaction and build a product with genuine
+        utility.
+      </p>
+
+      <p>
+        My app, <strong>Putt Dojo</strong>, is the result of this work. It uses
+        a custom computer vision algorithm applied to the passthrough camera
+        data of the Meta Quest 3/3S to calculate the speed and direction of a
+        real golf ball the moment it&rsquo;s struck with a putter. Once the
+        initial motion is determined, the app replaces the physical ball with a
+        simulated version that continues the ball's trajectory into a virtual
+        environment. The trick is the handoff: making the player believe the
+        real ball has simply rolled through a magic window onto a virtual golf
+        green.
+      </p>
+
+      <p>
+        This is the story of the design and development process that led to Putt
+        Dojo.
+      </p>
+
+      <h2>Just get it working</h2>
+
+      <p>
+        The path to building this product involved a long period of trial and
+        error, learning, and refinement. When I began this work in 2023, the Meta
+        Quest Pro had recently launched. It was the first consumer headset to
+        support color passthrough, but Meta had not yet given developers any way
+        to access the raw onboard camera data. At that stage I did not have a
+        particular product in mind that I wanted to build. I just wanted to get
+        a firsthand sense of the potential value that real-ball tracking has in
+        mixed reality. The idea was to get something working without concerning
+        myself with the constraints of an easy end-user product experience. I
+        rigged up a pair of external webcams and a separate computer, and set
+        out to make a prototype of real-ball tracking in a headset.
+      </p>
+
+      <!-- [Video 1] — early stereo-webcam tennis-ball tracking prototype. -->
+      <figure>
+        <video
+          src="ball_tracking.mp4"
+          controls
+          muted
+          playsinline
+          preload="metadata"
+        ></video>
+        <figcaption>
+          Early prototypes: tracking a colored ball (blob tracking) in a single
+          webcam, and a tennis ball tracked using two external webcams,
+          <a
+            href="https://en.wikipedia.org/wiki/Triangulation_(computer_vision)"
+            >triangulated</a
+          >
+          into 3D space and viewed in a Meta Quest Pro headset.
+        </figcaption>
+      </figure>
+
+      <p>
+        Using this approach, I was able to get a fairly accurate and low-latency
+        3D ball position, and begin to explore different ways of using a tracked
+        ball in mixed reality experiences. It helped me understand how a ball
+        could look in the headset, get a feel for the limitations and latency,
+        and make more grounded judgments about potential products that could be
+        made.
+      </p>
+
+      <h2>A portal into a virtual world</h2>
+
+      <p>
+        I quickly found that the spatial arrangement of having a &ldquo;portal
+        into a virtual world&rdquo; provided a nice balance: it kept the user
+        feeling present and comfortable in their physical space while still
+        retaining a strong sense of scale and immersion that mixed reality
+        headsets excel at. With an appropriate backstop set up, hitting tennis
+        balls and kicking soccer balls through this portal felt incredibly
+        physical and compelling. This was something new and interesting that
+        nobody had ever seen before: an interactive mixed reality experience
+        that used a real ball.
+      </p>
+
+      <!-- [Video 2] — portal demo with tennis and soccer balls. -->
+      <figure>
+        <video
+          src="portal.mp4"
+          controls
+          muted
+          playsinline
+          preload="metadata"
+        ></video>
+        <figcaption>
+          Hitting balls through a portal into a virtual scene.
+        </figcaption>
+      </figure>
+
+      <p>
+        When I showed these early prototypes to people in industry and academia,
+        the response was positive. Many people expressed excitement about the
+        potential of real-ball tracking, and I had some interesting
+        conversations about the different directions this work could go in.
+        These conversations helped me realize my original motivation. I wanted
+        to build a new kind of product that people would actually use, not just
+        a tech demo that looked cool in a video. It was then that I decided to
+        find a more concrete problem to solve. I needed to find a customer.
+      </p>
+
+      <h2>Why golf?</h2>
+
+      <p>
+        That&rsquo;s when I turned to golf. Those who play golf love to practice
+        wherever they happen to be, and there are many who already train putting
+        indoors using a putting mat or carpet. The right mixed reality app could
+        meet them exactly where they are, transforming a limited practice setup
+        into a more varied and fun training system. So I decided to turn the
+        ball-tracking prototype into a putting simulator for the Meta Quest 3.
+        Putt Window (now Putt Dojo) was born.
+      </p>
+
+      <p>
+        Focusing on putting simplified the tracking problem considerably. The
+        ball starts stationary, the important motion is limited to the ground
+        plane, and the spin of the ball is largely irrelevant. These reduced
+        requirements meant that I could use a single webcam rather than two, but
+        the first version of the app, launched in October 2024, was still
+        clumsy. The additional camera and computer requirement, as well as a
+        manual alignment step, made the app pretty tedious to use. Almost no one
+        used these early versions of the app, as the setup friction was much too
+        high.
+      </p>
+
+      <!-- [Video 3] — first iteration of the putting simulator. -->
+      <figure>
+        <video
+          src="putting_sim.mp4"
+          controls
+          muted
+          playsinline
+          preload="metadata"
+        ></video>
+        <figcaption>
+          An early version of Putt Dojo circa 2024 using an external webcam and
+          computer to track the ball.
+        </figcaption>
+      </figure>
+
+      <h2>Reducing friction</h2>
+
+      <p>
+        If I wanted to build a product that people would actually use, I had to
+        make it as easy as possible to get started. Wearing a headset is already
+        a barrier to entry. Every extra requirement I added on top of that meant
+        fewer people would make it through to the part where the app became
+        valuable. A significant part of developing Putt Dojo has been removing
+        those barriers one by one: less setup, less equipment, less friction
+        between the value of the app and the person trying to use it.
+      </p>
+      <p>
+        A key moment in this journey came in the first half of 2025, when Meta
+        opened up access to the onboard passthrough camera data. Suddenly, a
+        much simpler product design was possible. If the headset could see the
+        ball directly, I could remove the external camera and computer entirely.
+        That would be a huge win for the user, but getting there was far from
+        straightforward. It took months of intense experimentation to adapt the
+        tracking system to run natively on the headset, followed by ongoing work
+        to handle edge cases and refine the setup process until it felt reliable
+        and easy for the end user.
+      </p>
+      <p>
+        One of the first challenges with using the onboard cameras is that they
+        are constantly moving. With an external webcam, I could ask the player
+        to place the camera close to the ball, maximize the useful resolution,
+        and rely on the camera staying still. With the headset cameras, none of
+        those assumptions hold. The camera moves with the player's head, the
+        ball occupies only a small part of the image, and the tracking system
+        has to keep working even as the view changes from frame to frame.
+      </p>
+
+      <p>
+        The passthrough cameras are designed for a wide field of view, which
+        means the ball takes up only a small part of the overall image. For a
+        tracking algorithm, that is a problem. Tracking is a constant battle
+        against noise, and the more irrelevant image data the algorithm has to
+        process, the more chances it has to make a bad decision. One of the key
+        insights was to define a spatial
+        <a href="https://en.wikipedia.org/wiki/Region_of_interest"
+          >region of interest</a
+        >
+        and ignore everything outside it. Instead of asking the algorithm to
+        understand the whole camera feed, I could make it focus on the only part
+        that really matters for putting: a small patch of ground at and ahead of
+        where the ball is placed. This reduces the number of things that can go
+        wrong and constrains the problem to 2D tracking along the ground plane.
+      </p>
+
+      <!-- [Image 1] — before/after slider: raw camera feed vs tracking mask -->
+      <figure class="before-after">
+        <div class="before-after-inner">
+          <!-- Bottom layer: masked view (fully visible, sets element size) -->
+          <img
+            class="before-after-base"
+            src="visualization_mask.webp"
+            alt="Headset camera feed with tracking mask applied"
+          />
+          <!-- Top layer: raw camera feed (clipped by JS-driven clip-path) -->
+          <img
+            class="before-after-top"
+            src="visualization.webp"
+            alt="Raw headset camera feed"
+            style="clip-path: inset(0 50% 0 0)"
+          />
+          <!-- Divider line + handle -->
+          <div class="before-after-divider" style="left: 50%">
+            <div class="before-after-handle" aria-hidden="true">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </div>
+          </div>
+          <!-- Labels -->
+          <span class="before-after-label before-after-label--left"
+            >Camera feed</span
+          >
+          <span class="before-after-label before-after-label--right"
+            >Tracking mask</span
+          >
+          <!-- Invisible range input — handles all pointer/touch events -->
+          <input
+            type="range"
+            class="before-after-range"
+            min="0"
+            max="100"
+            value="50"
+            aria-label="Compare camera feed and tracking mask"
+          />
+        </div>
+        <figcaption>
+          Drag to compare the raw headset camera feed with the tracking mask
+          applied. The algorithm focuses only on the highlighted region.
+        </figcaption>
+      </figure>
+
+      <p>
+        The algorithm also had to work across different lighting conditions and
+        surfaces. My first approach was similar to the early prototypes: track
+        the ball mostly by color. In a well-lit room this worked nicely, but it
+        became unreliable in low light. I experimented with letting the user
+        adjust the color thresholds manually, but that pushed too much of the
+        problem onto the player. It made the app feel fiddly, which was exactly
+        what I was trying to avoid. The better approach was to rely less on the
+        ball's color and more on what I already knew about it. I used the
+        <a href="https://en.wikipedia.org/wiki/Circle_Hough_Transform"
+          >Circle Hough Transform</a
+        >
+        to lock on to the known size and circular shape of a golf ball, then
+        sample its color after finding it. This was more complex, but it made
+        the system much more robust across a wider range of rooms and surfaces.
+        It also meant people could use different colored golf balls, which was a
+        nice bonus for user choice.
+      </p>
+
+      <p>
+        Latency was another critical problem. The whole app depends on the
+        illusion that the real ball moves seamlessly into the virtual
+        environment, so any mismatch during that handoff is immediately
+        noticeable. There is a delay involved in capturing the passthrough
+        image, and the tracking system needs a couple of frames before it can
+        confidently estimate the ball's trajectory. In practice, the total delay
+        is about 100-130 milliseconds. That does not sound like much, but for a
+        moving golf ball it is enough time for the physical ball to be well on
+        its way before the simulated ball can even appear.
+      </p>
+
+      <p>
+        The Meta Quest passthrough cameras use a
+        <a href="https://en.wikipedia.org/wiki/Rolling_shutter"
+          >rolling shutter</a
+        >, which means different parts of the image are captured at slightly
+        different times. A ball near the top of the frame is recorded a little
+        earlier than a ball near the bottom. By combining the camera frame
+        timestamps with the ball's position inside the image, I can get a pretty
+        good estimate of when the ball actually started moving. Then, instead of
+        spawning the simulated ball at the current time and letting it lag
+        behind, I spawn it at the original position and step the simulation
+        forward by the estimated latency. The result is that the player never
+        sees a significant mismatch between the real ball and the simulated one,
+        which helps preserve the illusion that the ball has simply rolled
+        through a portal into the virtual world.
+      </p>
+
+      <!-- [Video 4] — latency correction demo, showing the real ball and simulated ball side by side with a visible latency offset. -->
+      <figure>
+        <video
+          src="latency_correction.mp4"
+          controls
+          muted
+          playsinline
+          preload="metadata"
+        ></video>
+        <figcaption>
+          Latency correction demo: comparison of putting with and without
+          latency correction.
+        </figcaption>
+      </figure>
+
+      <p>
+        Finally, all of this had to run on the Quest 3's mobile chipset, while
+        still leaving enough performance headroom for the rest of the app. I
+        ended up breaking the algorithm into a series of GPU operations
+        implemented as
+        <a href="https://en.wikipedia.org/wiki/Shader#Compute_shaders"
+          >compute shaders</a
+        >. The Quest 3 passthrough cameras top out at 1280x1280 resolution, but
+        pushing high-resolution image data through the GPU has a real
+        performance cost. By aggressively downsampling, optimizing, and removing
+        unnecessary steps, I eventually pushed the app past the 90 frames per
+        second target I was aiming for. After working through each challenge one
+        by one, I had an accurate, reliable real-ball putting system running
+        natively on the Quest 3. A major barrier between the user and the value
+        of the product was gone, and the app started to gain more traction.
+      </p>
+
+      <p>
+        Today, Putt Dojo runs entirely standalone on the Meta Quest 3/3S,
+        delivering an experience at 90&nbsp;frames per second that can turn a
+        living room into a putting green with no external camera, no computer,
+        and no awkward calibration ritual. That is the part I care about most:
+        the technology fades into the background, and the player just gets to
+        putt. Building that required more than a good tracking algorithm. It
+        required craft in the setup flow, in the performance work, and in the
+        careful arrangement of the physical and virtual elements so the player
+        does not have to think about where one ends and the other begins.
+      </p>
+
+      <!-- [Video 5] — the current version of Putt Dojo, running natively on the Quest 3 -->
+      <figure>
+        <video
+          src="latest.mp4"
+          controls
+          muted
+          playsinline
+          preload="metadata"
+        ></video>
+        <figcaption>
+          The current version of Putt Dojo, running natively on the Quest 3.
+        </figcaption>
+      </figure>
+
+      <h2>The road ahead</h2>
+
+      <p>
+        Recently, I&rsquo;ve started seeing similar designs show up in other
+        golf products across the mixed reality space, so I do think it is worth
+        documenting where this version of the idea came from. When you spend
+        years working through a problem from first principles, the finished
+        design can make the original work look obvious in hindsight. That is how
+        good product ideas tend to move. Once a design works, it starts to feel
+        inevitable.
+      </p>
+
+      <p>
+        I do not want the foundational work behind Putt Dojo to get lost in that
+        noise. This app is the product of a long, sometimes messy process of
+        making a real physical ball work inside mixed reality in a way that is
+        accurate, comfortable, and simple enough for normal people to actually
+        use. That foundation now feels complete. The tracking works. The setup
+        works. The physical-to-virtual handoff works. The next challenge is not
+        to keep proving the core idea, but to build something more distinctive
+        on top of it.
+      </p>
+
+      <p>
+        That is where Putt Dojo goes next. I still do not think of myself as a
+        golfer, but I have learned to appreciate how much serious practice
+        depends on repetition, feedback, and motivation. The opportunity now is
+        to make that practice feel more engaging without making it less useful:
+        to use mixed reality not just to simulate a green, but to create better
+        reasons to keep putting. The product design problem is mostly solved.
+        Now it is time to focus on the experience built on top of it.
+      </p>
+
+      <hr />
+
+      <p>
+        If you&rsquo;d like to follow what comes next &mdash; or share what
+        you&rsquo;d like to see in the app &mdash; the
+        <a href="https://discord.gg/wkDcwCEBzJ">Putt Dojo Discord</a> is the
+        best place to do it.
+      </p>
+    </article>
+
+    <div class="devlog-end">
+      <a href="index.html" class="btn btn-secondary">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        All Dev Log posts
+      </a>
+      <a
+        href="https://discord.gg/wkDcwCEBzJ"
+        class="btn btn-primary"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Join the Discord</a
+      >
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <a href="../index.html" class="footer-logo"
+              ><span>Putt Dojo</span></a
+            >
+            <p class="footer-description">
+              The most realistic putting practice experience in mixed reality.
+              Use your real putter and ball.
+            </p>
+          </div>
+          <div class="footer-links-group">
+            <h4>Product</h4>
+            <ul>
+              <li><a href="../index.html#features">Features</a></li>
+              <li><a href="../index.html#screenshots">Screenshots</a></li>
+              <li><a href="../index.html#requirements">Requirements</a></li>
+              <li>
+                <a
+                  href="https://www.meta.com/en-gb/experiences/putt-window/7908645409222708/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Meta Quest Store</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="footer-links-group">
+            <h4>Community</h4>
+            <ul>
+              <li><a href="index.html">Dev Log</a></li>
+              <li>
+                <a
+                  href="https://discord.gg/wkDcwCEBzJ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Discord</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 xr.golf. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+      // Before/after slider — scoped to this article page
+      (function () {
+        function initSliders() {
+          document.querySelectorAll(".before-after").forEach(function (fig) {
+            var inner = fig.querySelector(".before-after-inner");
+            var topImg = fig.querySelector(".before-after-top");
+            var divider = fig.querySelector(".before-after-divider");
+            var range = fig.querySelector(".before-after-range");
+            if (!inner || !topImg || !divider || !range) return;
+
+            function applyPosition(pct) {
+              topImg.style.clipPath = "inset(0 " + (100 - pct) + "% 0 0)";
+              divider.style.left = pct + "%";
+              range.value = pct;
+            }
+
+            // Sync range input changes to visual state
+            range.addEventListener("input", function () {
+              applyPosition(parseFloat(range.value));
+            });
+
+            // Fade labels while dragging
+            range.addEventListener("pointerdown", function () {
+              inner.classList.add("is-dragging");
+            });
+            range.addEventListener("pointerup", function () {
+              inner.classList.remove("is-dragging");
+            });
+            range.addEventListener("touchend", function () {
+              inner.classList.remove("is-dragging");
+            });
+
+            // Auto-sweep once on scroll into view: 50 → 10 → 90 → 50
+            var swept = false;
+            var observer = new IntersectionObserver(
+              function (entries) {
+                entries.forEach(function (entry) {
+                  if (entry.isIntersecting && !swept) {
+                    swept = true;
+                    observer.unobserve(inner);
+                    runSweep(applyPosition);
+                  }
+                });
+              },
+              { threshold: 0.6 },
+            );
+
+            observer.observe(inner);
+          });
+        }
+
+        // Animate through keyframes using rAF + ease-in-out
+        function runSweep(applyPosition) {
+          // keyframes: [value, cumulative-duration-ms]
+          var keyframes = [
+            [50, 0],
+            [10, 700],
+            [90, 1500],
+            [50, 2200],
+          ];
+          var startTime = null;
+
+          function easeInOut(t) {
+            return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+          }
+
+          function interpolate(a, b, t) {
+            return a + (b - a) * easeInOut(t);
+          }
+
+          function step(timestamp) {
+            if (!startTime) startTime = timestamp;
+            var elapsed = timestamp - startTime;
+            var totalDuration = keyframes[keyframes.length - 1][1];
+
+            if (elapsed >= totalDuration) {
+              applyPosition(keyframes[keyframes.length - 1][0]);
+              return;
+            }
+
+            // Find which segment we're in
+            var seg = 0;
+            for (var i = 1; i < keyframes.length; i++) {
+              if (elapsed <= keyframes[i][1]) {
+                seg = i - 1;
+                break;
+              }
+            }
+            var segStart = keyframes[seg][1];
+            var segEnd = keyframes[seg + 1][1];
+            var segDuration = segEnd - segStart;
+            var t = (elapsed - segStart) / segDuration;
+            applyPosition(
+              interpolate(keyframes[seg][0], keyframes[seg + 1][0], t),
+            );
+            requestAnimationFrame(step);
+          }
+
+          requestAnimationFrame(step);
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initSliders);
+        } else {
+          initSliders();
+        }
+      })();
+    </script>
+  </body>
+</html>
+
