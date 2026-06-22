@@ -117,13 +117,13 @@
         <span class="section-label">Dev Log &middot; Issue #01</span>
         <h1 class="devlog-title">How Putt Dojo Tracks a Real Golf Ball</h1>
         <p class="devlog-deck">
-          The engineering and design story behind Putt Dojo&rsquo;s real-ball
+          The story of the technical design behind Putt Dojo&rsquo;s real-ball
           tracking on Meta Quest 3
         </p>
         <div class="devlog-meta">
           <time datetime="2026-06-21">June 21, 2026</time>
           <span class="dot" aria-hidden="true"></span>
-          <span>by Gayan, solo developer of Putt Dojo</span>
+          <span>by Gayan, developer of Putt Dojo</span>
         </div>
       </div>
     </header>
@@ -146,7 +146,7 @@
         I&rsquo;ve been digging deep into a specific technical design challenge:
         how to bring a real, physical ball into mixed reality. My motivation has
         never been to build a cool tech demo or a flashy video; I wanted to push
-        the boundaries of spatial interaction and build a product with genuine
+        the boundaries of mixed reality design and build a product with genuine
         utility.
       </p>
 
@@ -171,16 +171,16 @@
 
       <p>
         The path to building this product involved a long period of trial and
-        error, learning, and refinement. When I began this work in 2023, the Meta
-        Quest Pro had recently launched. It was the first consumer headset to
-        support color passthrough, but Meta had not yet given developers any way
-        to access the raw onboard camera data. At that stage I did not have a
-        particular product in mind that I wanted to build. I just wanted to get
-        a firsthand sense of the potential value that real-ball tracking has in
-        mixed reality. The idea was to get something working without concerning
-        myself with the constraints of an easy end-user product experience. I
-        rigged up a pair of external webcams and a separate computer, and set
-        out to make a prototype of real-ball tracking in a headset.
+        error, learning, and refinement. When I began this work in 2023, the
+        Meta Quest Pro had recently launched. It was the first consumer headset
+        to support color passthrough, but Meta had not yet given developers a
+        way to access the raw onboard camera data. At that stage I did not have
+        a particular product in mind that I wanted to build. I just wanted to
+        get a firsthand sense of the potential value that real-ball tracking has
+        in mixed reality. I wanted to get something working without concerning
+        myself with the constraints of an easy end-user product experience, so I
+        rigged up a pair of external webcams and a separate computer and set out
+        to make a prototype of real-ball tracking in a headset.
       </p>
 
       <!-- [Video 1] — early stereo-webcam tennis-ball tracking prototype. -->
@@ -204,12 +204,12 @@
       </figure>
 
       <p>
-        Using this approach, I was able to get a fairly accurate and low-latency
-        3D ball position, and begin to explore different ways of using a tracked
-        ball in mixed reality experiences. It helped me understand how a ball
-        could look in the headset, get a feel for the limitations and latency,
-        and make more grounded judgments about potential products that could be
-        made.
+        Using this basic approach, I was able to get a fairly accurate and
+        low-latency 3D ball position, and begin to explore different ways of
+        using a tracked ball in mixed reality experiences. This work helped me
+        understand how a ball could look in the headset, get a feel for the
+        limitations and latency, and make more grounded judgments about
+        potential products that could be made.
       </p>
 
       <h2>A portal into a virtual world</h2>
@@ -221,7 +221,7 @@
         retaining a strong sense of scale and immersion that mixed reality
         headsets excel at. With an appropriate backstop set up, hitting tennis
         balls and kicking soccer balls through this portal felt incredibly
-        physical and compelling. This was something new and interesting that
+        physical and compelling. This was something fundamentally cool that
         nobody had ever seen before: an interactive mixed reality experience
         that used a real ball.
       </p>
@@ -236,7 +236,8 @@
           preload="metadata"
         ></video>
         <figcaption>
-          Hitting balls through a portal into a virtual scene.
+          Hitting balls through a portal into a virtual scene in a mixed reality
+          headset.
         </figcaption>
       </figure>
 
@@ -245,9 +246,9 @@
         the response was positive. Many people expressed excitement about the
         potential of real-ball tracking, and I had some interesting
         conversations about the different directions this work could go in.
-        These conversations helped me realize my original motivation. I wanted
-        to build a new kind of product that people would actually use, not just
-        a tech demo that looked cool in a video. It was then that I decided to
+        These conversations helped me refocus on my original goal. I wanted to
+        build a new kind of product that people would actually use, not just a
+        tech demo that looked cool in a video. It was then that I decided to
         find a more concrete problem to solve. I needed to find a customer.
       </p>
 
@@ -297,9 +298,9 @@
         make it as easy as possible to get started. Wearing a headset is already
         a barrier to entry. Every extra requirement I added on top of that meant
         fewer people would make it through to the part where the app became
-        valuable. A significant part of developing Putt Dojo has been removing
-        those barriers one by one: less setup, less equipment, less friction
-        between the value of the app and the person trying to use it.
+        valuable. A significant part of developing Putt Dojo was removing those
+        barriers one by one: less setup, less equipment, less friction between
+        the value of the app and the person trying to use it.
       </p>
       <p>
         A key moment in this journey came in the first half of 2025, when Meta
@@ -315,11 +316,12 @@
       <p>
         One of the first challenges with using the onboard cameras is that they
         are constantly moving. With an external webcam, I could ask the player
-        to place the camera close to the ball, maximize the useful resolution,
-        and rely on the camera staying still. With the headset cameras, none of
-        those assumptions hold. The camera moves with the player's head, the
-        ball occupies only a small part of the image, and the tracking system
-        has to keep working even as the view changes from frame to frame.
+        to place the camera close to the ball in order to maximize the useful
+        resolution, and I could rely on the camera staying still. With the
+        headset cameras, those assumptions no longer hold. The camera moves with
+        the player's head, the ball occupies only a small part of the image, and
+        the tracking system has to keep working even as the view changes from
+        frame to frame.
       </p>
 
       <p>
@@ -327,8 +329,8 @@
         means the ball takes up only a small part of the overall image. For a
         tracking algorithm, that is a problem. Tracking is a constant battle
         against noise, and the more irrelevant image data the algorithm has to
-        process, the more chances it has to make a bad decision. One of the key
-        insights was to define a spatial
+        process, the higher the chance of it making a bad decision. One of the
+        key insights was to define a spatial
         <a href="https://en.wikipedia.org/wiki/Region_of_interest"
           >region of interest</a
         >
@@ -410,17 +412,17 @@
       <p>
         The algorithm also had to work across different lighting conditions and
         surfaces. My first approach was similar to the early prototypes: track
-        the ball mostly by color. In a well-lit room this worked nicely, but it
-        became unreliable in low light. I experimented with letting the user
-        adjust the color thresholds manually, but that pushed too much of the
-        problem onto the player. It made the app feel fiddly, which was exactly
-        what I was trying to avoid. The better approach was to rely less on the
-        ball's color and more on what I already knew about it. I used the
+        the ball by color. In a well-lit room this worked nicely, but it became
+        unreliable in low light. I experimented with letting the user adjust the
+        color thresholds manually, but that pushed too much of the problem onto
+        the player. It made the app feel fiddly, which was exactly what I was
+        trying to avoid. The better approach was to rely less on the ball's
+        color and more on what I already knew about it. I used the
         <a href="https://en.wikipedia.org/wiki/Circle_Hough_Transform"
           >Circle Hough Transform</a
         >
         to lock on to the known size and circular shape of a golf ball, then
-        sample its color after finding it. This was more complex, but it made
+        sampled its color after finding it. This was more complex, but it made
         the system much more robust across a wider range of rooms and surfaces.
         It also meant people could use different colored golf balls, which was a
         nice bonus for user choice.
@@ -445,14 +447,14 @@
         >, which means different parts of the image are captured at slightly
         different times. A ball near the top of the frame is recorded a little
         earlier than a ball near the bottom. By combining the camera frame
-        timestamps with the ball's position inside the image, I can get a pretty
-        good estimate of when the ball actually started moving. Then, instead of
-        spawning the simulated ball at the current time and letting it lag
-        behind, I spawn it at the original position and step the simulation
-        forward by the estimated latency. The result is that the player never
-        sees a significant mismatch between the real ball and the simulated one,
-        which helps preserve the illusion that the ball has simply rolled
-        through a portal into the virtual world.
+        timestamps with the ball's position inside the image, I could get a
+        pretty good estimate of when the ball actually started moving. Then,
+        instead of spawning the simulated ball at the current time and letting
+        it lag behind, I spawned it at the original position and stepped the
+        simulation forward by the estimated latency. The result is that the
+        player never sees a significant mismatch between the real ball and the
+        simulated one, which helps preserve the illusion that the ball has
+        simply rolled through a portal into the virtual world.
       </p>
 
       <!-- [Video 4] — latency correction demo, showing the real ball and simulated ball side by side with a visible latency offset. -->
@@ -473,7 +475,7 @@
       <p>
         Finally, all of this had to run on the Quest 3's mobile chipset, while
         still leaving enough performance headroom for the rest of the app. I
-        ended up breaking the algorithm into a series of GPU operations
+        ended up breaking the algorithm down into a series of GPU operations
         implemented as
         <a href="https://en.wikipedia.org/wiki/Shader#Compute_shaders"
           >compute shaders</a
@@ -517,12 +519,12 @@
 
       <p>
         Recently, I&rsquo;ve started seeing similar designs show up in other
-        golf products across the mixed reality space, so I do think it is worth
+        golf products across the mixed reality space, so I think it's worth
         documenting where this version of the idea came from. When you spend
         years working through a problem from first principles, the finished
-        design can make the original work look obvious in hindsight. That is how
-        good product ideas tend to move. Once a design works, it starts to feel
-        inevitable.
+        design can look obvious in hindsight, so it's important to reflect on
+        the process. That is how good product ideas tend to move. Once a design
+        works, it starts to feel inevitable.
       </p>
 
       <p>
